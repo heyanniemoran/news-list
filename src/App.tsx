@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Container from "react-bootstrap/Container";
+import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Container>
+      <div className="py-3">
+        <Button variant="primary">Reload news list</Button>
+      </div>
+      <ListGroup numbered>
+        <ListGroup.Item
+          action
+          href="#"
+          className="d-flex justify-content-start align-items-start"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <div className="d-flex flex-column ms-3">
+            <h5>News Title</h5>
+            <div className="d-flex justify-content-start align-items-start">
+              <div className="me-3">Rating</div>
+              <div className="me-3">Author</div>
+              <div>Date</div>
+            </div>
+          </div>
+        </ListGroup.Item>
+      </ListGroup>
+    </Container>
   );
 }
 
