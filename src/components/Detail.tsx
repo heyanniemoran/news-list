@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
@@ -21,12 +22,10 @@ function Detail() {
       </div>
       <Stack gap={2} className="mt-3">
         <div className="border p-2">
-          <Button variant="primary" size="sm">
+          <Button variant="primary" size="sm" className="me-3">
             Обновить
           </Button>
-          <Button variant="link" size="sm">
-            Вернуться к списку
-          </Button>
+          <Link to="../">Вернуться к списку</Link>
         </div>
         <div className="border p-2">Comments</div>
       </Stack>
