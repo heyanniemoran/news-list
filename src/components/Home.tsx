@@ -25,7 +25,6 @@ async function fetchNews(): Promise<FeedItem[]> {
   let news: FeedItem[] = [];
   let page: number = 1;
   while (news.length < 100) {
-    debugger;
     let response = await apiClient.get<FeedItem[]>("/newest/" + page + ".json");
     page++;
     news = news.concat(response.data);
@@ -36,7 +35,10 @@ async function fetchNews(): Promise<FeedItem[]> {
 function Home() {
   const { isLoading, isSuccess, isError, data, error, refetch } = useQuery(
     ["query-news"],
-    fetchNews
+    fetchNews,
+    {
+      refetchInterval: 60000,
+    }
   );
   return (
     <Container>
