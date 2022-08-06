@@ -41,15 +41,21 @@ function Home() {
           data.map((item) => (
             <ListGroup.Item className="d-flex">
               <Link
-                to="detail"
+                to={`/${item.id}`}
                 className="d-flex justify-content-start align-items-start"
               >
                 <div className="d-flex flex-column ms-3">
                   <h5>{item.title}</h5>
                   <div className="d-flex justify-content-start align-items-start">
-                    <span className="me-3">{item.points}</span>
-                    <span className="me-3">{item.user}</span>
-                    <span>{item.time}</span>
+                    <span className="me-4">{item.points}</span>
+                    <span className="me-4">
+                      <i className="bi bi-person me-1"></i>
+                      {item.user}
+                    </span>
+                    <span>
+                      <i className="bi bi-clock me-1"></i>
+                      {item.time_ago}
+                    </span>
                   </div>
                 </div>
               </Link>
