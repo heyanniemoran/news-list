@@ -22,7 +22,7 @@ export interface Item {
   type: string;
   url?: string;
   domain?: string;
-  comments: Item[]; // Comments are items too
+  comments: Item[];
   level: number;
   comments_count: number;
 }
@@ -51,16 +51,9 @@ function Detail() {
         <div>
           <h1>{data.title}</h1>
           <div className="d-flex align-items-baseline justify-content-start">
-            <span className="me-4">
-              <i className="bi bi-clock me-1"></i>
-              {data.time_ago}
-            </span>
-            <span className="me-4">
-              <i className="bi bi-person me-1"></i>
-              {data.user}
-            </span>
+            <span className="me-4">{data.time_ago}</span>
+            <span className="me-4">{data.user}</span>
             <a href={data.url} target="_blank" className="me-4">
-              <i className="bi bi-box-arrow-up-right me-1"></i>
               read
             </a>
             <Badge pill bg="info">
@@ -75,11 +68,9 @@ function Detail() {
                 className="me-3"
                 onClick={() => refetch()}
               >
-                <i className="bi bi-arrow-repeat me-2"></i>reload comments
+                reload comments
               </Button>
-              <Link to="../">
-                <i className="bi bi-arrow-left-short"></i> back
-              </Link>
+              <Link to="../">back</Link>
             </div>
             <h5>Comments</h5>
             {data.comments_count == 0 && <span>Comments not found</span>}

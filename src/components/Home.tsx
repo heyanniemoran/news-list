@@ -44,7 +44,7 @@ function Home() {
     <Container>
       <div className="py-2">
         <Button variant="primary" size="sm" onClick={() => refetch()}>
-          <i className="bi bi-arrow-repeat me-2"></i>Reload news list
+          Reload news list
         </Button>
       </div>
       {isLoading && <Spinner animation="border" />}
@@ -61,14 +61,8 @@ function Home() {
                     <h5>{item.title}</h5>
                     <div className="d-flex justify-content-start align-items-start text-dark">
                       <span className="me-4">{item.points}</span>
-                      <span className="me-4">
-                        <i className="bi bi-person me-1"></i>
-                        {item.user}
-                      </span>
-                      <span>
-                        <i className="bi bi-clock me-1"></i>
-                        {item.time_ago}
-                      </span>
+                      <span className="me-4">{item.user}</span>
+                      <span>{item.time_ago}</span>
                     </div>
                   </div>
                 </Link>
