@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
@@ -36,9 +36,13 @@ async function fetchNewsItem(context: QueryFunctionContext): Promise<Item> {
 
 function Detail() {
   const { id } = useParams();
+  const [show, setShow] = useState([]);
   const { isLoading, isSuccess, isError, data, error, refetch } = useQuery(
     ["query-detail", id],
-    fetchNewsItem
+    fetchNewsItem,
+    {
+      refetchInterval: 60000,
+    }
   );
   return (
     <Container>
@@ -65,7 +69,12 @@ function Detail() {
           </div>
           <Stack gap={2} className="mt-3">
             <div className="border p-2">
-              <Button variant="primary" size="sm" className="me-3">
+              <Button
+                variant="primary"
+                size="sm"
+                className="me-3"
+                onClick={() => refetch()}
+              >
                 <i className="bi bi-arrow-repeat me-2"></i>reload comments
               </Button>
               <Link to="../">
@@ -74,15 +83,13 @@ function Detail() {
             </div>
             <h5>Comments</h5>
             {data.comments_count == 0 && <span>Comments not found</span>}
-            {data.comments &&
-              data.comments.map((comment) => (
-                <div className="border p-2">
-                  <span>{comment.user}</span>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: comment.content }}
-                  ></div>
-                </div>
-              ))}
+            {isSuccess && data.comments && (
+              <ul className="list-unstyled">
+                {data.comments.map((comment) => (
+                  <Comment comment={comment} />
+                ))}
+              </ul>
+            )}
           </Stack>
         </div>
       )}
@@ -92,6 +99,29 @@ function Detail() {
         </Alert>
       )}
     </Container>
+  );
+}
+
+interface CommentProps {
+  comment: Item;
+}
+function Comment(props: CommentProps) {
+  const [show, setShow] = useState(false);
+  return (
+    <li className="border p-2 cursor-pointer mb-3">
+      <div onClick={() => setShow((current) => !current)}>
+        <strong>{props.comment.user}</strong>
+        <div dangerouslySetInnerHTML={{ __html: props.comment.content }}></div>
+      </div>
+      {show && (
+        <ul>
+          {props.comment.comments &&
+            props.comment.comments.map((comment) => (
+              <Comment comment={comment} />
+            ))}
+        </ul>
+      )}
+    </li>
   );
 }
 
