@@ -22,8 +22,15 @@ export interface FeedItem {
 }
 
 async function fetchNews(): Promise<FeedItem[]> {
-  const response = await apiClient.get<FeedItem[]>("/newest/1.json");
-  return response.data;
+  let news: FeedItem[] = [];
+  let page: number = 1;
+  while (news.length < 100) {
+    debugger;
+    let response = await apiClient.get<FeedItem[]>("/newest/" + page + ".json");
+    page++;
+    news = news.concat(response.data);
+  }
+  return news.slice(0, 100);
 }
 
 function Home() {

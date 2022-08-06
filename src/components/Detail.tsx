@@ -6,7 +6,6 @@ import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import apiClient from "../http-common";
 
