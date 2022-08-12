@@ -5,8 +5,7 @@ import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "../http-common";
+import { useGetNewsListQuery } from "../newsApi";
 
 export interface FeedItem {
   id: number;
@@ -21,25 +20,11 @@ export interface FeedItem {
   domain?: string;
 }
 
-async function fetchNews(): Promise<FeedItem[]> {
-  let news: FeedItem[] = [];
-  let page: number = 1;
-  while (news.length < 100) {
-    let response = await apiClient.get<FeedItem[]>("/newest/" + page + ".json");
-    page++;
-    news = news.concat(response.data);
-  }
-  return news.slice(0, 100);
-}
-
 function Home() {
-  const { isLoading, isSuccess, isError, data, error, refetch } = useQuery(
-    ["query-news"],
-    fetchNews,
-    {
-      refetchInterval: 60000,
-    }
-  );
+  const { data, error, isLoading, isSuccess, isError, refetch } =
+    useGetNewsListQuery(undefined, {
+      pollingInterval: 60000,
+    });
   return (
     <Container>
       <div className="py-2">

@@ -6,8 +6,7 @@ import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import apiClient from "../http-common";
+import { useGetNewsDetailQuery } from "../newsApi";
 
 export interface Item {
   id: number;
@@ -27,23 +26,13 @@ export interface Item {
   comments_count: number;
 }
 
-async function fetchNewsItem(context: QueryFunctionContext): Promise<Item> {
-  const response = await apiClient.get<Item>(
-    "/item/" + context.queryKey[1] + ".json"
-  );
-  return response.data;
-}
-
 function Detail() {
   const { id } = useParams();
   const [show, setShow] = useState([]);
-  const { isLoading, isSuccess, isError, data, error, refetch } = useQuery(
-    ["query-detail", id],
-    fetchNewsItem,
-    {
-      refetchInterval: 60000,
-    }
-  );
+  const { data, error, isLoading, isSuccess, isError, refetch } =
+    useGetNewsDetailQuery(id, {
+      pollingInterval: 60000,
+    });
   return (
     <Container>
       {isLoading && <Spinner animation="border" />}
