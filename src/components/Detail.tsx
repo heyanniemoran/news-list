@@ -7,24 +7,8 @@ import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import { useGetNewsDetailQuery } from "../newsApi";
-
-export interface Item {
-  id: number;
-  title: string;
-  points: number | null;
-  user: string | null;
-  time: number;
-  time_ago: string;
-  content: string;
-  deleted?: boolean;
-  dead?: boolean;
-  type: string;
-  url?: string;
-  domain?: string;
-  comments: Item[];
-  level: number;
-  comments_count: number;
-}
+import Comment from "./Comments";
+import { Item } from "../constants/Item";
 
 function Detail() {
   const { id } = useParams();
@@ -55,7 +39,7 @@ function Detail() {
                 variant="primary"
                 size="sm"
                 className="me-3"
-                onClick={() => refetch()}
+                onClick={refetch}
               >
                 reload comments
               </Button>
@@ -79,29 +63,6 @@ function Detail() {
         </Alert>
       )}
     </Container>
-  );
-}
-
-interface CommentProps {
-  comment: Item;
-}
-function Comment(props: CommentProps) {
-  const [show, setShow] = useState(false);
-  return (
-    <li className="border p-2 cursor-pointer mb-3">
-      <div onClick={() => setShow((current) => !current)}>
-        <strong>{props.comment.user}</strong>
-        <div dangerouslySetInnerHTML={{ __html: props.comment.content }}></div>
-      </div>
-      {show && (
-        <ul>
-          {props.comment.comments &&
-            props.comment.comments.map((comment) => (
-              <Comment comment={comment} />
-            ))}
-        </ul>
-      )}
-    </li>
   );
 }
 

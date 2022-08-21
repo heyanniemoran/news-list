@@ -6,19 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import { useGetNewsListQuery } from "../newsApi";
-
-export interface FeedItem {
-  id: number;
-  title: string;
-  points?: number | null;
-  user?: string | null;
-  time: number;
-  time_ago: string;
-  comments_count: number;
-  type: string;
-  url?: string;
-  domain?: string;
-}
+import { FeedItem } from "../constants/FeedItem";
 
 function Home() {
   const { data, error, isLoading, isSuccess, isError, refetch } =
@@ -28,7 +16,7 @@ function Home() {
   return (
     <Container>
       <div className="py-2">
-        <Button variant="primary" size="sm" onClick={() => refetch()}>
+        <Button variant="primary" size="sm" onClick={refetch}>
           Reload news list
         </Button>
       </div>

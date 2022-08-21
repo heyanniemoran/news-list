@@ -3,8 +3,8 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/dist/query/react";
-import { FeedItem } from "./components/Home";
-import { Item } from "./components/Detail";
+import { FeedItem } from "./constants/FeedItem";
+import { Item } from "./constants/Item";
 
 export const newsApi = createApi({
   reducerPath: "newsAPI",
